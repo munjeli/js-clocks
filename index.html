@@ -1,0 +1,201 @@
+<!DOCTYPE HTML>
+<!--
+This is exactly the kind of problem I hate to see when I'm applying for a job in frontend dev. It's a typical beginning compsci question about a backend function which would be interesting if you could express it mathamatically (calendars are matrixes with irregular quantities) but that would confuse most programmers and lead to poor maintenance. But the clincher is the instruction to 'mentally picture two analog clocks'. Why would I mentally picture the problem? I'm a frontend dev! 
+
+The Real Issue I immediately saw with this question is that there is no cross browser support for the rotate transform property in css and programming it in JS would be time wasted - there's several plugins and libraries that will do it for you (notably jqueryrotate). SVG isn't supported in all browsers either though that would be a great way to go with js to animate. Finally, anyone can see the absence of circles in Web UI: scaling circles responsively with content is tricky, scaling to support accessibility, and setting an image in a bordered circle has cross browser issues. And what about validation on the time without smacking the user around? These kinds of things are typically where I see failures in modern web pages. 
+
+If you just write the js function for this it's the easy part and it defines the position of a frontend dev as simply a weak backend dev. Making and animating a round clock with moving arms in JS/CSS3 is a nontrivial challenge to bring to all devices, all browsers, accessibly, but that is not the intent of the 'test'. Someday I'd like to see a programming challenge for a frontend dev job that has to do with innovative, usercentric UI: it's the challenge that brought me to frontend dev. So here is my live version of a moving clock, mostly cross browser, not yet responsive or accessible.  Because that is the actual neato part of the test.-->
+
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Clock</title>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+	<!--css styles-->
+	<link href="css/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+ 	<link href="css/stylesheets/print.css" media="print" rel="stylesheet" type="text/css" />
+	<!--[if IE]>
+	    <link href="css/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
+	<![endif]-->
+	<script type="text/javascript">
+	$(document).ready(function(){
+
+
+		$("#submitbutton").click(function(){
+
+		/*setup for time functions*/
+		var h1;
+		var m1;
+		var h2;
+		var m2;
+		var ampm1;
+		var ampm2;
+
+
+
+		var time1 = $("#time1").val();
+		var time2 = $("#time2").val();
+
+		timeDiff(time1, time2);
+
+		/*validate*/
+
+		
+
+		function timeDiff(time1, time2){
+			var hdiff;
+			var mdiff;
+
+			/*get the hours and minutes for the math*/
+			var timeArr1 = amCheck((time1.replace(":", " ")).split(" "));
+			var timeArr2 = amCheck((time2.replace(":", " ")).split(" "));
+
+
+			h1 = parseInt(timeArr1[0]);
+			m1 =  parseInt(timeArr1[1]);
+			ampm1 = timeArr1[2];
+
+			h2 = parseInt(timeArr2[0]);
+			m2 =  parseInt(timeArr2[1]);
+			ampm2 = timeArr2[2];
+
+			/*var time1 = timeTotal(h1, m1, ampm1);
+			var time2 = timeTotal(h2, m2, ampm2);
+			alert (time1 + " " + time2);
+			var timeChange;
+
+			if (time2 > time1) {
+				timeChange = time2 - time1;
+			} 
+			else{
+				timeChange = (24 * 60) - (time2 - time1);
+			}
+
+			var hdiff = timeChange/60;
+			var mdiff = timeChange%60;
+
+			alert(hdiff + " " + mdiff);
+
+			function timeTotal(h, m, ampm){
+				alert(h);
+
+				if(ampm == "PM"){
+					var h = h + 12;
+				}
+				else{}
+				var timetotal = (h * 60) + m;
+				return timetotal;
+			}*/
+		}
+			
+			/*determine the time difference for hours
+			if((h1 <= h2) && (ampm1 == ampm2)){
+
+				hdiff = (h2 - h1); 
+			}
+			else if(h1 < h2){
+
+				hdiff = 12 + (h2 - h1);
+			}
+			else if((h1 > h2) && (ampm1 == ampm2)){
+
+				
+				if((h1 == 12) && (ampm1 == "PM")){
+					hdiff = h2;
+				}
+
+				else{
+					hdiff = 24 - (h1 - h2);
+				}
+			}
+			else{
+
+				hdiff = 12 - (h1 - h2);
+			}  
+
+			
+			if(m1 < m2){
+
+				mdiff = m2 - m1;
+			}
+			else if((m1 > m2) && (h1 == h2) && (ampm1 == ampm2)){
+
+				mdiff = 60 - (m1 - m2);
+				hdiff = 23;
+			}
+			else{
+
+				mdiff = 60 - (m1 - m2);
+			}
+ 
+			alert(hdiff + " " + mdiff);
+
+		}
+
+		function amCheck(timeArr){
+
+			if((timeArr[0] == 12) && (timeArr[2] == "AM")){
+				timeArr[0] = "0";
+			}
+			else{}
+
+			return timeArr;
+		}*/
+
+
+	});
+	</script>
+
+</head>
+
+<body>
+
+	<header>
+		<h1>The Clock</h1>
+		<hr/>
+	</header>
+	
+	<section class="clockapp">
+		<div class="clockboxes">
+
+			<div class="timeinputs">
+
+					<div class="instructions">
+						Please enter two times in the following format: HH:MM AM
+					</div>
+					<!--I didn't add validation but I'd usually use a library-->
+					<span>
+						From <input type="text" id="time1" value="12:00 AM" maxlength="8" autofocus/>
+					</span>
+
+					<span>
+						To <input type="text" id="time2" value="12:00 AM" maxlength="8"/>
+					</span>
+
+					<!--but I'm not using a real submit, I'd have to prevent default action-->
+					<span>
+						<input type="button" id="submitbutton" value="Submit"/>
+					</span>
+
+			</div>
+
+			<div class="submitted">
+				<span class="submitmessage"></span>
+				<span class="timediff"></span>
+			</div>
+
+		</div>
+
+		<div class="clock">
+		</div>
+	</section>
+
+
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass/reset";
+@import "compass/css3";
+
+$accent: #E94C29;
+$light: #EDE1C5;
+$accent2: #7A834C;
+$accent3: #9DDDC0;
+$dark: #39574B;
+
+html, body{
+	background-color: $light;
+	font-size: 1.2em;
+	font-weight: 600;
+	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+	color: $dark;
+	line-height: 1.5;
+}
+
+body{
+	padding: 40px;
+	text-align: center;
+}
+
+input, button{
+
+	-webkit-appearance: none;
+
+	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+	font-size: 1em;
+	font-weight: 600;
+	line-height: 1.2em;
+
+}
+
+header{
+	h1{
+		font-size: 1.5em;
+		line-height: 2;
+	}
+	hr{
+		border-bottom: 2px solid darken($light, 20%);
+		margin-bottom: 20px;
+	}
+}
+
+.instructions{
+	font-size: 0.8em;
+	color: $accent2;
+	margin-bottom: 20px;
+}
+.timeinputs{
+	span{
+		margin-left: 10px;
+
+		input{
+			&[type=text]{		
+				border: 4px solid $accent2;
+				color: $dark;
+				width: 120px;
+				text-align: center;
+			}
+			&[type=button]{
+				font-size: 1em;
+				text-transform: uppercase;
+				letter-spacing: 1px;
+				padding: 5px 10px;
+				color: white;
+				@include background(linear-gradient($dark, $accent2));
+				border: 3px solid darken($light, 30%);
+			}
+
+		}	
+	}
+}
+
+.submitted{
+	margin: 20px 0;
+}
+
+
+
+
